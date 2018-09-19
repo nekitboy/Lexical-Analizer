@@ -7,6 +7,13 @@
     <groupId>Assignment 2</groupId>
     <artifactId>Assignment 2</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
