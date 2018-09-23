@@ -20,5 +20,14 @@ Numbers can have different forms: integer (a sequence of digits), hex (0x follow
 11) Identifiers can either be class, variable, method or parameter names.
 12) Comments.
 
+## How to run
+1. Prepare in.txt to source code of Kotlin Language
+2. Run one of the two lexer configuration:
+- console_lexer.jar: makes output to the console, one token by one enter press
+- lexer_to_file.jar: out all tokens to the out.txt file at once
 
+// Command for run:
+// "java -jar console_lexer.jar" or "java -jar lexer_to_file.jar"
+
+// Also you can use IDE for run Java Maven Project. Start class is "Main.java"
 

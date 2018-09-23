@@ -15,7 +15,9 @@ public class LexicalAnalyzer {
 
     // Special Symbols of Kotlin Languages
     // Represented as ArrayList <String>
-    private ArrayList <String> specialSymbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "%", "=", "+=", "-=", "*=", "/=", "%=", "++", "--", "&&", "||", "!", "==", "!=", "===", "!==", "<", ">", "<=", ">=", "[", "]", "!!", "?.", "?:", "::", "..", ":", "?", "->", "@", ";", "$", "_", "(", ")", "{", "}", ",", "."));
+    private ArrayList <String> specialSymbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "%", "=", "+=", "-=",
+            "*=", "/=", "%=", "++", "--", "&&", "||", "!", "==", "!=", "===", "!==", "<", ">", "<=", ">=", "[", "]",
+            "!!", "?.", "?:", "::", "..", ":", "?", "->", "@", ";", "$", "_", "(", ")", "{", "}", ",", "."));
 
     private ArrayList <Character> delimiters = new ArrayList<Character>(Arrays.asList(' ', '\n', '\t'));
 
@@ -86,12 +88,14 @@ public class LexicalAnalyzer {
 
     private void parseComment() throws Exception {
         StringBuilder l = new StringBuilder();
-        nextChar(2);
+        //nextChar(2);
+        l.append(nextChar(2));
         while(hasMoreSymbols(2) && !cursorChar(2).equals("*/")) {
             l.append(nextChar());
         }
         if (hasMoreSymbols(2) && cursorChar(2).equals("*/")) {
-            nextChar(2);
+            //nextChar(2);
+            l.append(nextChar(2));
             tokens.add(new Token(Token.TokenType.Comment, l.toString()));
         }
         else {
@@ -104,7 +108,7 @@ public class LexicalAnalyzer {
         while (hasMoreSymbols() && cursorChar() != '\n') {
             l.append(nextChar());
         }
-        if (hasMoreSymbols() && cursorChar() == '\n') {
+        if (hasMoreSymbols() && cursorChar() == '\n' || !hasMoreSymbols()) {
             tokens.add(new Token(Token.TokenType.Comment, l.toString()));
         }
         else {
@@ -274,7 +278,7 @@ public class LexicalAnalyzer {
     }
 
     private boolean checkCharForHex(char c) {
-        ArrayList<Character> alphabet = new ArrayList<>(Arrays.asList('0', '1', '2', '3', '4', '5', '6',
+        ArrayList<Character> alphabet = new ArrayList<Character>(Arrays.asList('0', '1', '2', '3', '4', '5', '6',
                 '7', '8', '9', 'a', 'A', 'b', 'B', 'c', 'C', 'd', 'D', 'e', 'E', 'f', 'F'));
         return alphabet.contains(c);
     }

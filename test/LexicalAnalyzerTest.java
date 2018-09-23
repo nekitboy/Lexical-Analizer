@@ -28,6 +28,22 @@ class LexicalAnalyzerTest {
     }
 
     @Test
+    void keywordsAndSymbolsOK() throws Exception {
+        StringBuilder s = new StringBuilder("if (true) {}");
+        LexicalAnalyzer analyzer = new LexicalAnalyzer();
+        analyzer.parse(s);
+
+        assertEquals(analyzer.nextToken().toString(), "Keyword: if");
+        assertEquals(analyzer.nextToken().toString(), "Delimiter: SPACE");
+        assertEquals(analyzer.nextToken().toString(), "SpecialSymbol: (");
+        assertEquals(analyzer.nextToken().toString(), "Keyword: true");
+        assertEquals(analyzer.nextToken().toString(), "SpecialSymbol: )");
+        assertEquals(analyzer.nextToken().toString(), "Delimiter: SPACE");
+        assertEquals(analyzer.nextToken().toString(), "SpecialSymbol: {");
+        assertEquals(analyzer.nextToken().toString(), "SpecialSymbol: }");
+    }
+
+    @Test
     void numberOK() throws Exception {
         StringBuilder s = new StringBuilder("3.4e10");
         LexicalAnalyzer analyzer = new LexicalAnalyzer();
@@ -45,6 +61,21 @@ class LexicalAnalyzerTest {
     @Test
     void identifierException() {
         StringBuilder s = new StringBuilder("™");
+        LexicalAnalyzer analyzer = new LexicalAnalyzer();
+        assertThrows(Exception.class, () -> analyzer.parse(s));
+    }
+
+    @Test
+    void commentOK() throws Exception {
+        StringBuilder s = new StringBuilder("/* asdasdasd */");
+        LexicalAnalyzer analyzer = new LexicalAnalyzer();
+        analyzer.parse(s);
+        assertEquals(analyzer.nextToken().toString(), "Comment: /* asdasdasd */");
+    }
+
+    @Test
+    void commentException() {
+        StringBuilder s = new StringBuilder("/* asdasdasd *");
         LexicalAnalyzer analyzer = new LexicalAnalyzer();
         assertThrows(Exception.class, () -> analyzer.parse(s));
     }
