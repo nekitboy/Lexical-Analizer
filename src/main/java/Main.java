@@ -1,13 +1,24 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        LexicalAnalyzer analyzer = new LexicalAnalyzer(readFile("in.txt"));
+        LexicalAnalyzer analyzer = new LexicalAnalyzer();
+        StringBuilder output = new StringBuilder();
+        try {
+            analyzer.parse(readFile("in.txt"));
+        } catch (Exception ex) {
+            output.append(ex.toString());
+            BufferedWriter out = new BufferedWriter(new FileWriter("out.txt"));
+            out.write(output.toString().trim());
+            out.close();
+            return;
+        }
         while (analyzer.hasNextToken())
-            System.out.println(analyzer.nextToken());
+            output.append(analyzer.nextToken() + "\n");
+        BufferedWriter out = new BufferedWriter(new FileWriter("out.txt"));
+        out.write(output.toString().trim());
+        out.close();
     }
 
     // Make string from file

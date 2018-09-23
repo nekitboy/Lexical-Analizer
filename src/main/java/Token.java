@@ -1,7 +1,8 @@
 public class Token {
     enum TokenType {
-        String, QuotedString, Digit, Delimiter, Keyword, SoftKeyword, ModifierKeyword, SpecialIdentifier, SpecialSymbol, Identifier, LineComment, Comment
-    };
+        Literal, Delimiter, Keyword, SpecialSymbol, Opening, OpeningCurly, OpeningSquare,
+        Closing, ClosingCurly, ClosingSquare, Identifier, Comment
+    }
 
     // Type of the token
     TokenType tokenType;
